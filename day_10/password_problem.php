@@ -17,7 +17,7 @@ if (isset($_POST['btn'])) {
         return $password ;
     }
 
-    make_password($_POST);
+    //make_password($_POST);
 }
 ?>
 
