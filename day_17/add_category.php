@@ -5,25 +5,10 @@
 if(isset($_POST['btn'])){
     
     function save_category($data){
-        $host_name='localhost';
-        $user_name='root';
-        $password='';
-        $db_name='db_seip_php17';
-        $connection=mysqli_connect($host_name, $user_name, $password);
-        if($connection){
-            $db_select=mysqli_select_db($connection, db_seip_php17);
-            if($db_select){
-                
-            }
-            else {
-                die('Database Selection Fail'.  mysql_error($connection));
-         }
-            
-        } else {
-                die('Database Connection Fail'. mysql_error($connection));
-         }
         
-         $sql="INSERT INTO tbl_category (category_name , category_description , publication_status) VALUES ('$_POST[category_name]' ,' $_POST[category_description]','$_POST[publication_status] '  )";
+        require 'db_connect.php';
+
+    $sql="INSERT INTO tbl_category (category_name , category_description , publication_status) VALUES ('$_POST[category_name]' ,' $_POST[category_description]','$_POST[publication_status] '  )";
          if(mysqli_query($connection, $sql)){
             $message= " Category info save successfully";
             return $message ;

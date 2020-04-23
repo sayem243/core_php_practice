@@ -2,27 +2,26 @@
 $category_id = $_GET['category_id'];
 
 
-
-
-
 function select_category_info_by_category_id($category_id) {
-    $host_name = 'localhost';
-    $user_name = 'root';
-    $password = '';
-    $db_name = 'db_seip_php17';
-    $connection = mysqli_connect($host_name, $user_name, $password);
-    if ($connection) {
-       $db_select = mysqli_select_db($connection, $db_name);
-        if ($db_select) {
-            
-        } else {
-            die('Database Selection Fail' . mysqli_error($connection));
-        }
-    } else {
-        die('Database Connection Fail' . mysqli_error($connection));
-    }
+//    $host_name = 'localhost';
+//    $user_name = 'root';
+//    $password = '';
+//    $db_name = 'db_seip_php17';
+//    $connection = mysqli_connect($host_name, $user_name, $password);
+//    if ($connection) {
+//       $db_select = mysqli_select_db($connection, $db_name);
+//        if ($db_select) {
+//            
+//        } else {
+//            die('Database Selection Fail' . mysqli_error($connection));
+//        }
+//    } else {
+//        die('Database Connection Fail' . mysqli_error($connection));
+//    }
     
-    $sql = "SELECT * FROM tbl_category WHERE category_id='$category_id' ";
+    require 'db_connect.php';
+    
+    $sql = "SELECT * FROM tbl_category WHERE category_id= '$category_id' ";
 
     if (mysqli_query($connection, $sql)) {
         $resource_id = mysqli_query($connection, $sql);
@@ -39,24 +38,14 @@ $category_info = mysqli_fetch_assoc($resource_id);
 if(isset($_POST['btn'])) {
 
     function update_category_info($data) {
-        $host_name = 'localhost';
-        $user_name = 'root';
-        $password = '';
-        $db_name = 'db_seip_php17';
-        $connection = mysqli_connect($host_name, $user_name, $password);
-        if ($connection) {
-            $db_select = mysqli_select_db($connection, $db_name);
-            if ($db_select) {
-                
-            } else {
-                die('Database Selection Fail' . mysqli_error($connection));
-            }
-        } else {
-            die('Database Connection Fail' . mysqli_error($connection));
-        }
 
-        $sql ="UPDATE tbl_category SET category_name='$data[category_name]',category_description='$data[category_description]',publication_status='$data[publication_status]' WHERE category_id='$data[category_id]' ";
+        require 'db_connect.php';
+        
+        $sql ="UPDATE tbl_category SET category_name=' $data[category_name] ',category_description='$data[category_description]',publication_status='$data[publication_status]' WHERE category_id='$data[category_id]' ";
+         
         if (mysqli_query($connection, $sql )) {
+           
+            
             header('Location: view_category.php');
         } else {
             die('Query problem' . mysqli_error($connection));
